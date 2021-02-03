@@ -54,10 +54,10 @@ import(
     "log"
 )
 
-resp, err := Post(&Request{
+resp, err := vider.Post(&vider.Request{
 		URL:    "https://reqres.in/api/users",
 		Client: &http.Client{},
-		Params: Params{
+		Params: vider.Params{
 			"headers": {
 				"Content-Type": "application/json",
 			},
@@ -83,10 +83,10 @@ import(
     "log"
 )
 
-resp, err := Put(&Request{
+resp, err := vider.Put(&vider.Request{
 		URL:    "https://reqres.in/api/users",
 		Client: &http.Client{},
-		Params: Params{
+		Params: vider.Params{
 			"headers": {
 				"Content-Type": "application/json",
 			},
