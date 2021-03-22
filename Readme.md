@@ -235,7 +235,7 @@ log.Println(dataResponse)
 ### v1.0 - Official production release
 <ul>
 <li>Added JSON to Struct serialization for responses</li>
-<li>Addes Tests and Github workflow to run them</li>
+<li>Added Tests and Github workflow to run them</li>
 </ul>
 
 ## Author
