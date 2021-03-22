@@ -2,7 +2,7 @@
 
 Vider is a HTTP package with Javascript Fetch like API for making HTTP requests and handing responses. This project aims to help making HTTP requests in Go easier and fun. All responses are JSON encoded automatically.
 
-Vider v1.0 has been released.
+Vider v1.0 has been released 🎉 🎉 🎉.
 
 
 ## Table of Contents
