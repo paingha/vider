@@ -17,6 +17,8 @@ type Request struct {
 	URL    string
 	Client *http.Client
 	Params map[string]map[string]interface{}
+	Body   interface{}
+	Data   interface{}
 }
 
 // Response - struct containing response data
@@ -34,7 +36,6 @@ type Params map[string]map[string]interface{}
 
 // Get - Makes a HTTP Get Request to provided URL
 func Get(request *Request) (*Response, error) {
-	var response interface{}
 	req, err := http.NewRequest("GET", request.URL, nil)
 	if err != nil {
 		return nil, err
@@ -47,19 +48,18 @@ func Get(request *Request) (*Response, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	json.NewDecoder(resp.Body).Decode(&response)
+	json.NewDecoder(resp.Body).Decode(request.Data)
 	currentResp := &Response{
 		StatusCode:    resp.StatusCode,
 		StatusMessage: http.StatusText(resp.StatusCode),
-		Body:          response,
+		Body:          request.Data,
 	}
 	return currentResp, nil
 }
 
 // Post - Makes a HTTP Post Request to provided URL
 func Post(request *Request) (*Response, error) {
-	var response interface{}
-	body, err := json.Marshal(request.Params["body"])
+	body, err := json.Marshal(request.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -75,18 +75,17 @@ func Post(request *Request) (*Response, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	json.NewDecoder(resp.Body).Decode(&response)
+	json.NewDecoder(resp.Body).Decode(request.Data)
 	currentResp := &Response{
 		StatusCode:    resp.StatusCode,
 		StatusMessage: http.StatusText(resp.StatusCode),
-		Body:          response,
+		Body:          request.Data,
 	}
 	return currentResp, nil
 }
 
 // Put - Makes a HTTP Patch Request to provided URL
 func Put(request *Request) (*Response, error) {
-	var response interface{}
 	body, err := json.Marshal(request.Params["body"])
 	if err != nil {
 		return nil, err
@@ -103,18 +102,17 @@ func Put(request *Request) (*Response, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	json.NewDecoder(resp.Body).Decode(&response)
+	json.NewDecoder(resp.Body).Decode(request.Data)
 	currentResp := &Response{
 		StatusCode:    resp.StatusCode,
 		StatusMessage: http.StatusText(resp.StatusCode),
-		Body:          response,
+		Body:          request.Data,
 	}
 	return currentResp, nil
 }
 
 // Delete - Makes a HTTP Delete Request to provided URL
 func Delete(request *Request) (*Response, error) {
-	var response interface{}
 	req, err := http.NewRequest("DELETE", request.URL, nil)
 	if err != nil {
 		return nil, err
@@ -127,11 +125,11 @@ func Delete(request *Request) (*Response, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	json.NewDecoder(resp.Body).Decode(&response)
+	json.NewDecoder(resp.Body).Decode(request.Data)
 	currentResp := &Response{
 		StatusCode:    resp.StatusCode,
 		StatusMessage: http.StatusText(resp.StatusCode),
-		Body:          response,
+		Body:          request.Data,
 	}
 	return currentResp, nil
 }

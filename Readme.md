@@ -2,11 +2,15 @@
 
 Vider is a HTTP package with Javascript Fetch like API for making HTTP requests and handing responses. This project aims to help making HTTP requests in Go easier and fun. All responses are JSON encoded automatically.
 
+Vider v1.0 has been released.
+
+
 ## Table of Contents
 
 * [Installation](#installation)
 * [Importing & Usage](#usage)
 * [Similarities](#similarities)
+* [Changelog](#chanelog)
 * [Author](#author)
   
 ## Installation
@@ -22,13 +26,20 @@ Import the package and setup the request. URL (string), Client (http.Client{} fr
 ### Vider Get Request Example
 A Get Request using Vider
 
+vider.Get - returns a response (which has a StatusCode and a StatusMessage) and an error
+
 ```golang
 import(
     "github.com/paingha/vider"
     "net/http"
     "log"
 )
-
+type TodoResponse struct {
+	Title  string
+	ID     int
+	UserID int
+}
+dataResponse := &TodoResponse{}
 resp, err := vider.Get(&vider.Request{
 		URL:    "https://jsonplaceholder.typicode.com/todos/1",
 		Client: &http.Client{},
@@ -37,15 +48,19 @@ resp, err := vider.Get(&vider.Request{
 				"Content-Type": "application/json",
 			},
 		},
+		Data: dataResponse,
 	})
 if err != nil {
 	log.Error(err)
 }
 log.Println(resp)
+log.Println(dataResponse)
 ```
 
 ### Vider Post Request Example
 A Post Request using Vider is as simple and similar as the fetch API:
+
+vider.Post - returns a response (which has a StatusCode and a StatusMessage) and an error
 
 ```golang
 import(
@@ -53,7 +68,19 @@ import(
     "net/http"
     "log"
 )
+type TodoResponse struct {
+	Title  string
+	ID     int
+	UserID int
+}
 
+type TodoRequest struct {
+	Title  string
+	ID     int
+	UserID int
+}
+dataResponse := &TodoResponse{}
+dataRequest := &TodoRequest{}
 resp, err := vider.Post(&vider.Request{
 		URL:    "https://reqres.in/api/users",
 		Client: &http.Client{},
@@ -61,20 +88,21 @@ resp, err := vider.Post(&vider.Request{
 			"headers": {
 				"Content-Type": "application/json",
 			},
-			"body": {
-				"name": "hello world",
-				"job":  "Software Dev",
-			},
 		},
+		Body: dataRequest,
+		Data: dataResponse,
 })
 if err != nil {
 	log.Error(err)
 }
 log.Println(resp)
+log.Println(dataResponse)
 ```
 
 ### Vider Put Request Example
 A Put Request using Vider sends a PATCH HTTP Request:
+
+vider.Put - returns a response (which has a StatusCode and a StatusMessage) and an error
 
 ```golang
 import(
@@ -82,7 +110,19 @@ import(
     "net/http"
     "log"
 )
+type TodoResponse struct {
+	Title  string
+	ID     int
+	UserID int
+}
 
+type TodoRequest struct {
+	Title  string
+	ID     int
+	UserID int
+}
+dataResponse := &TodoResponse{}
+dataRequest := &TodoRequest{}
 resp, err := vider.Put(&vider.Request{
 		URL:    "https://reqres.in/api/users",
 		Client: &http.Client{},
@@ -90,20 +130,21 @@ resp, err := vider.Put(&vider.Request{
 			"headers": {
 				"Content-Type": "application/json",
 			},
-			"body": {
-				"name": "hello world",
-				"job":  "Software Dev",
-			},
 		},
+		Body: dataRequest,
+		Data: dataResponse,
 })
 if err != nil {
 	log.Error(err)
 }
 log.Println(resp)
+log.Println(dataResponse)
 ```
 
 ### Vider Delete Request Example
 A Delete Request using Vider sends a DELETE HTTP Request:
+
+vider.Delete - returns a response (which has a StatusCode and a StatusMessage) and an error
 
 ```golang
 import(
@@ -111,7 +152,18 @@ import(
     "net/http"
     "log"
 )
-
+type TodoResponse struct {
+	Title  string
+	ID     int
+	UserID int
+}
+type TodoRequest struct {
+	Title  string
+	ID     int
+	UserID int
+}
+dataResponse := &TodoResponse{}
+dataRequest := &TodoRequest{}
 resp, err := vider.Delete(&vider.Request{
 		URL:    "https://jsonplaceholder.typicode.com/todos/1",
 		Client: &http.Client{},
@@ -120,11 +172,14 @@ resp, err := vider.Delete(&vider.Request{
 				"Content-Type": "application/json",
 			},
 		},
+		Body: dataRequest,
+		Data: dataResponse,
 	})
 if err != nil {
 	log.Error(err)
 }
 log.Println(resp)
+log.Println(dataResponse)
 ```
 
 
@@ -143,13 +198,21 @@ fetch('https://jsonplaceholder.typicode.com/todos/1', {
 
 Vider Get Request
 
+
+vider.Get - returns a response (which has a StatusCode and a StatusMessage) and an error
+
 ```golang
 import(
     "github.com/paingha/vider"
     "net/http"
     "log"
 )
-
+type TodoResponse struct {
+	Title  string
+	ID     int
+	UserID int
+}
+dataResponse := &TodoResponse{}
 resp, err := vider.Get(&vider.Request{
 		URL:    "https://jsonplaceholder.typicode.com/todos/1",
 		Client: &http.Client{},
@@ -158,14 +221,22 @@ resp, err := vider.Get(&vider.Request{
 				"Content-Type": "application/json",
 			},
 		},
+		Data: dataResponse,
 	})
 if err != nil {
 	log.Error(err)
 }
 log.Println(resp)
+log.Println(dataResponse)
 ```
 
+## Changelog
 
+### v1.0 - Official production release
+<ul>
+<li>Added JSON to Struct serialization for responses</li>
+<li>Adde Test and Github workflow to run them</li>
+</ul>
 
 ## Author
 
