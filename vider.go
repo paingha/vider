@@ -84,8 +84,35 @@ func Post(request *Request) (*Response, error) {
 	return currentResp, nil
 }
 
-// Put - Makes a HTTP Patch Request to provided URL
+// Put - Makes a HTTP Put Request to provided URL
 func Put(request *Request) (*Response, error) {
+	body, err := json.Marshal(request.Params["body"])
+	if err != nil {
+		return nil, err
+	}
+	req, err := http.NewRequest("PUT", request.URL, bytes.NewBuffer(body))
+	if err != nil {
+		return nil, err
+	}
+	for key, value := range request.Params["headers"] {
+		req.Header.Set(key, fmt.Sprintf("%v", value))
+	}
+	resp, err := request.Client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	json.NewDecoder(resp.Body).Decode(request.Data)
+	currentResp := &Response{
+		StatusCode:    resp.StatusCode,
+		StatusMessage: http.StatusText(resp.StatusCode),
+		Body:          request.Data,
+	}
+	return currentResp, nil
+}
+
+// Patch - Makes a HTTP Patch Request to provided URL
+func Patch(request *Request) (*Response, error) {
 	body, err := json.Marshal(request.Params["body"])
 	if err != nil {
 		return nil, err

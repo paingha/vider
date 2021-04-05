@@ -35,11 +35,11 @@ import(
     "log"
 )
 type TodoResponse struct {
-	Title  string
-	ID     int
-	UserID int
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	ID     int    `json:"id"`
+	UserID int    `json:"userId"`
 }
-dataResponse := &TodoResponse{}
 resp, err := vider.Get(&vider.Request{
 		URL:    "https://jsonplaceholder.typicode.com/todos/1",
 		Client: &http.Client{},
@@ -48,13 +48,14 @@ resp, err := vider.Get(&vider.Request{
 				"Content-Type": "application/json",
 			},
 		},
-		Data: dataResponse,
+		Data: TodoResponse{},
 	})
 if err != nil {
 	log.Error(err)
 }
 log.Println(resp)
-log.Println(dataResponse)
+//You will need to type cast from interface to the needed data datatype
+log.Println(resp.Body.(TodoResponse).Title)
 ```
 
 ### Vider Post Request Example
@@ -69,34 +70,39 @@ import(
     "log"
 )
 type TodoResponse struct {
-	Title  string
-	ID     int
-	UserID int
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	ID     int    `json:"id"`
+	UserID int    `json:"userId"`
 }
 
 type TodoRequest struct {
-	Title  string
-	ID     int
-	UserID int
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	ID     int    `json:"id"`
+	UserID int    `json:"userId"`
 }
-dataResponse := &TodoResponse{}
-dataRequest := &TodoRequest{}
 resp, err := vider.Post(&vider.Request{
-		URL:    "https://reqres.in/api/users",
+		URL:    "https://jsonplaceholder.typicode.com/posts",
 		Client: &http.Client{},
 		Params: vider.Params{
 			"headers": {
 				"Content-Type": "application/json",
 			},
 		},
-		Body: dataRequest,
-		Data: dataResponse,
+		Body: &TodoRequest{
+			Title:  "Test Vider",
+			Body:   "Testing Vider",
+			UserID: 1,
+		},
+		Data: TodoResponse{},
 })
 if err != nil {
 	log.Error(err)
 }
 log.Println(resp)
-log.Println(dataResponse)
+//You will need to type cast from interface to the needed data datatype
+log.Println(resp.Body.(TodoResponse).Title)
 ```
 
 ### Vider Put Request Example
@@ -111,34 +117,40 @@ import(
     "log"
 )
 type TodoResponse struct {
-	Title  string
-	ID     int
-	UserID int
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	ID     int    `json:"id"`
+	UserID int    `json:"userId"`
 }
 
 type TodoRequest struct {
-	Title  string
-	ID     int
-	UserID int
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	ID     int    `json:"id"`
+	UserID int    `json:"userId"`
 }
-dataResponse := &TodoResponse{}
-dataRequest := &TodoRequest{}
 resp, err := vider.Put(&vider.Request{
-		URL:    "https://reqres.in/api/users",
+		URL:    "https://jsonplaceholder.typicode.com/posts/1",
 		Client: &http.Client{},
 		Params: vider.Params{
 			"headers": {
 				"Content-Type": "application/json",
 			},
 		},
-		Body: dataRequest,
-		Data: dataResponse,
+		Body: &TodoRequest{
+			ID:     1,
+			Title:  "Test Vider",
+			Body:   "Testing Vider",
+			UserID: 1,
+		},
+		Data: TodoResponse{},
 })
 if err != nil {
 	log.Error(err)
 }
 log.Println(resp)
-log.Println(dataResponse)
+//You will need to type cast from interface to the needed data datatype
+log.Println(resp.Body.(TodoResponse).Title)
 ```
 
 ### Vider Delete Request Example
@@ -153,17 +165,18 @@ import(
     "log"
 )
 type TodoResponse struct {
-	Title  string
-	ID     int
-	UserID int
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	ID     int    `json:"id"`
+	UserID int    `json:"userId"`
 }
+
 type TodoRequest struct {
-	Title  string
-	ID     int
-	UserID int
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	ID     int    `json:"id"`
+	UserID int    `json:"userId"`
 }
-dataResponse := &TodoResponse{}
-dataRequest := &TodoRequest{}
 resp, err := vider.Delete(&vider.Request{
 		URL:    "https://jsonplaceholder.typicode.com/todos/1",
 		Client: &http.Client{},
@@ -172,14 +185,12 @@ resp, err := vider.Delete(&vider.Request{
 				"Content-Type": "application/json",
 			},
 		},
-		Body: dataRequest,
-		Data: dataResponse,
+		Data: TodoResponse{},
 	})
 if err != nil {
 	log.Error(err)
 }
 log.Println(resp)
-log.Println(dataResponse)
 ```
 
 
@@ -208,11 +219,11 @@ import(
     "log"
 )
 type TodoResponse struct {
-	Title  string
-	ID     int
-	UserID int
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	ID     int    `json:"id"`
+	UserID int    `json:"userId"`
 }
-dataResponse := &TodoResponse{}
 resp, err := vider.Get(&vider.Request{
 		URL:    "https://jsonplaceholder.typicode.com/todos/1",
 		Client: &http.Client{},
@@ -221,13 +232,14 @@ resp, err := vider.Get(&vider.Request{
 				"Content-Type": "application/json",
 			},
 		},
-		Data: dataResponse,
+		Data: TodoResponse{},
 	})
 if err != nil {
 	log.Error(err)
 }
 log.Println(resp)
-log.Println(dataResponse)
+//You will need to type cast from interface to the needed data datatype
+log.Println(resp.Body.(TodoResponse).Title)
 ```
 
 ## Changelog
