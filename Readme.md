@@ -16,7 +16,7 @@ Vider v1.0.1 has been released 🎉 🎉 🎉.
 ## Installation
 
 ```
-go get github.com/paingha/vider
+go get github.com/paingha/vider@v1.0.1
 ```
 
 ## Importing & Usage
