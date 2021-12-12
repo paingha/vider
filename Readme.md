@@ -252,7 +252,7 @@ log.Println(resp.Body.(TodoResponse).Title)
 
 ## Author
 
-Hi! I am Paingha Joe Alagoa Jnr. I am a recent college graduate with 4 years experience using Golang and Javascript to build scalable and user friendly applications.
+Hi! I am Paingha Joe Alagoa Jnr. I am a recent college graduate with 5 years experience using Golang and Javascript to build scalable and user friendly applications.
 <br/>
 <br />
 <strong>Currently Open to New Full-time Software Developer positions in the United States (both remote and in person roles) for Golang and Javascript. </strong>
